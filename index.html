@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta CNPJ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1E3A8A; /* Azul Escuro */
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #1E3A8A; /* Azul Escuro */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #162A6A; /* Azul Escuro mais intenso */
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            color: #1E3A8A; /* Azul Escuro */
+        }
+
+        p {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        #footer {
+            width: 100%;
+            background-color: #1E3A8A; /* Azul Escuro */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        @media (max-width: 600px) {
+            input[type="text"] {
+                width: 200px;
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function consultarCNPJ() {
+            var cnpj = document.getElementById("cnpj").value;
+            $.ajax({
+                url: "https://www.receitaws.com.br/v1/cnpj/" + cnpj,
+                type: "GET",
+                dataType: "jsonp",
+                success: function (data) {
+                    // Dados da empresa
+                    var nome = data.nome;
+                    var endereco = data.logradouro + ", " + data.numero + " - " + data.bairro + ", " + data.municipio + " - " + data.uf;
+                    var telefone = data.telefone;
+                    var email = data.email;
+                    var cep = data.cep;
+
+                    // Atualizar elementos HTML
+                    document.getElementById("nome").textContent = nome;
+                    document.getElementById("endereco").textContent = endereco;
+                    document.getElementById("telefone").textContent = telefone;
+                    document.getElementById("email").textContent = email;
+                    document.getElementById("cep").textContent = cep;
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Erro ao consultar CNPJ!");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Consulta CNPJ</h1>
+    <form>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" required>
+        <button type="button" onclick="consultarCNPJ()">Consultar</button>
+    </form>
+    <h2>Dados da Empresa:</h2>
+    <p><strong>Nome:</strong> <span id="nome"></span></p>
+    <p><strong>Endereço:</strong> <span id="endereco"></span></p>
+    <p><strong>Telefone:</strong> <span id="telefone"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>CEP:</strong> <span id="cep"></span></p>
+    <div id="footer">Programa desenvolvido por André Luis Salles Martins</div>
+</body>
+</html>
