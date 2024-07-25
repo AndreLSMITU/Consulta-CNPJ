@@ -114,6 +114,7 @@
                     var email = data.email;
                     var cep = data.cep;
                     var situacao = data.situacao;
+                    var abertura = data.abertura;
 
                     // Atualizar elementos HTML
                     document.getElementById("nome").textContent = nome;
@@ -122,6 +123,7 @@
                     document.getElementById("email").textContent = email;
                     document.getElementById("cep").textContent = cep;
                     document.getElementById("situacao").textContent = situacao;
+                    document.getElementById("abertura").textContent = abertura;
                 },
                 error: function (error) {
                     console.log(error);
@@ -145,6 +147,7 @@
     <p><strong>Email:</strong> <span id="email"></span></p>
     <p><strong>CEP:</strong> <span id="cep"></span></p>
     <p><strong>Situação Cadastral:</strong> <span id="situacao"></span></p>
+    <p><strong>Data de Abertura:</strong> <span id="abertura"></span></p>
     <div id="footer">Programa desenvolvido por André Luis Salles Martins</div>
 </body>
 </html>
