@@ -94,8 +94,16 @@
     <script>
         function consultarCNPJ() {
             var cnpj = document.getElementById("cnpj").value;
+            // Remover caracteres não numéricos
+            var cnpjLimpo = cnpj.replace(/[^\d]/g, '');
+
+            if (cnpjLimpo.length !== 14) {
+                alert("CNPJ inválido! Por favor, verifique o número digitado.");
+                return;
+            }
+
             $.ajax({
-                url: "https://www.receitaws.com.br/v1/cnpj/" + cnpj,
+                url: "https://www.receitaws.com.br/v1/cnpj/" + cnpjLimpo,
                 type: "GET",
                 dataType: "jsonp",
                 success: function (data) {
